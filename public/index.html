@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Contact Manager</title>
+    <script src="/javascripts/jquery.js"></script>
+    <script src="/javascripts/handlebars.js"></script>
+    <link href="./stylesheets/style.css" rel="stylesheet" />
+    <script src="./javascripts/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script>
+      $(document).ready(async function () {
+        const contactManager = new ContactManager();
+
+        await contactManager.populateContactsGrid();
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <h2>Contact Manager</h2>
+    </header>
+    <div id="contact-manager">
+      <div id="contact-container">
+        <div id="top">
+          <button class="add">Add Contact</button>
+          <input id="search" type="text" placeholder="Search" />
+        </div>
+        <div id="contacts-grid"></div>
+        <div class="contact-info" id="no-contacts">
+          <h3>There is no contacts</h3>
+          <button class="add">Add Contact</button>
+        </div>
+        <div class="contact-info" id="contacts-filtered">
+          <h3>There are no contacts containing <strong></strong></h3>
+        </div>
+      </div>
+      <div class="change-contact" id="new-contact">
+        <h2>Create Contact</h2>
+        <div>
+          <form action="/api/contacts/" method="POST">
+            <div class="form-group">
+              <label for="new-fname">Full name:</label>
+              <div class="form-input">
+                <input type="text" id="new-fname" name="full_name" />
+                <small>Please enter the name field</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="new-email">Email address:</label>
+              <div class="form-input">
+                <input type="email" id="new-email" name="email" />
+                <small>Please enter the email field</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="new-pnumber">Telephone number:</label>
+              <div class="form-input">
+                <input type="text" id="new-pnumber" name="phone_number" />
+                <small>Please enter the Telephone number field</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="new-tags">Tags:</label>
+              <div class="form-input">
+                <input type="text" id="new-tags" name="tags" />
+                <!-- <small>Please enter the Telephone number field</small> -->
+              </div>
+            </div>
+            <div class="form-group-buttons">
+              <button type="submit">Submit</button>
+              <button type="button" class="cancel">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p>Developed by Will</p>
+    </footer>
+    <script id="contacts" type="text/x-handlebars-template">
+      {{#each this}}
+        <div class="grid-item" data-contact-id={{id}}>
+          <h3 data-field="full_name">{{full_name}}</h3>
+          <div>
+            <dl>
+              <dt>Phone Number</dt>
+              <dd data-field="phone_number">{{phone_number}}</dd>
+              <dt>Email</dt>
+              <dd data-field="email">{{email}}</dd>
+              <dt>Tags</dt>
+              <ul class="tags">
+                {{#if tags}}
+                  {{#each tags}}
+                    <li><button
+                        type="button"
+                        class="button-tag"
+                        data-tag-name="{{this}}"
+                      >{{this}}</button></li>
+                  {{/each}}
+                {{/if}}
+              </ul>
+            </dl>
+            <div class="button-container">
+              <button class="edit">Edit</button>
+              <button class="delete">Delete</button>
+            </div>
+          </div>
+          <hr />
+        </div>
+      {{/each}}
+    </script>
+    <script id="editContacts" type="text/x-handlebars-template">
+      <div class="change-contact" id="edit-contact">
+        <h2>Edit Contact</h2>
+        <div>
+          <form data-contact-id={{id}} class="edit-form">
+            <div class="form-group">
+              <label for="edit-fname">Full name:</label>
+              <div class="form-input">
+                <input
+                  type="text"
+                  id="edit-fname"
+                  name="full_name"
+                  value="{{full_name}}"
+                />
+                <small>Please enter the name field</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="edit-email">Email address:</label>
+              <div class="form-input">
+                <input
+                  type="email"
+                  id="edit-email"
+                  name="email"
+                  value="{{email}}"
+                />
+                <small>Please enter the email field</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="edit-pnumber">Telephone number:</label>
+              <div class="form-input">
+                <input
+                  type="text"
+                  id="edit-pnumber"
+                  name="phone_number"
+                  value="{{phone_number}}"
+                />
+                <small>Please enter the Telephone number field</small>
+              </div>
+            </div>
+            <div class="form-group-buttons">
+              <button type="submit">Submit</button>
+              <button type="button" class="cancel-edit">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </script>
+  </body>
+</html>
