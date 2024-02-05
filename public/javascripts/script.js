@@ -319,7 +319,7 @@ class ContactManager {
       if (key === "tags" && value === "") {
         object[key] === null;
       } else {
-        object[key] = value;
+        object[key] = value.trim();
       }
     });
 

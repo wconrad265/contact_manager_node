@@ -85,32 +85,33 @@
       {{#each this}}
         <div class="grid-item" data-contact-id={{id}}>
           <h3 data-field="full_name">{{full_name}}</h3>
-          <div>
+          <div class="contact-item">
             <dl>
               <dt>Phone Number</dt>
               <dd data-field="phone_number">{{phone_number}}</dd>
               <dt>Email</dt>
               <dd data-field="email">{{email}}</dd>
               <dt>Tags</dt>
-              <ul class="tags">
-                {{#if tags}}
-                  {{#each tags}}
-                    <li><button
-                        type="button"
-                        class="button-tag"
-                        data-tag-name="{{this}}"
-                      >{{this}}</button></li>
-                  {{/each}}
-                {{/if}}
-              </ul>
             </dl>
-            <div class="button-container">
-              <button class="edit">Edit</button>
-              <button class="delete">Delete</button>
-            </div>
+            <ul class="tags">
+              {{#if tags}}
+                {{#each tags}}
+                  <li><button
+                      type="button"
+                      class="button-tag"
+                      data-tag-name="{{this}}"
+                    >{{this}}</button></li>
+                {{/each}}
+              {{/if}}
+            </ul>
+          </div>
+          <div class="button-container">
+            <button class="edit">Edit</button>
+            <button class="delete">Delete</button>
           </div>
           <hr />
         </div>
+
       {{/each}}
     </script>
     <script id="editContacts" type="text/x-handlebars-template">

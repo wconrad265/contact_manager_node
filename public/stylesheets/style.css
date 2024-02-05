@@ -86,14 +86,16 @@ button:hover {
 }
 
 #contacts-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 10px;
   margin: 0 20%;
 }
 
 @media (max-width: 1000px) {
   #contacts-grid {
-    flex-direction: column;
+    grid-template-columns: repeat(1, 1fr);
   }
 
   .form-group {
@@ -111,9 +113,15 @@ button:hover {
   }
 }
 
+@media (min-width: 1300px) and (max-width: 1700px) {
+  #contacts-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media (min-width: 1000px) and (max-width: 1300px) {
-  .grid-item {
-    flex: 0 0 25%;
+  #contacts-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .form-group {
@@ -127,17 +135,29 @@ button:hover {
 }
 
 .grid-item {
-  flex-basis: 20%;
-  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
   padding-bottom: 10px;
   text-align: left;
   color: rgb(51, 51, 51);
   padding-left: 15px;
   padding-right: 15px;
+  flex: 1;
 }
 
+.contact-item {
+  display: flex;
+  flex-direction: column;
+}
 .grid-item h3 {
   font-size: 24px;
+  align-self: flex-start;
+}
+
+.grid-item dl {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0px;
 }
 
 .grid-item dt {
@@ -154,34 +174,36 @@ button:hover {
 }
 
 .grid-item hr {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  border-top: 1px solid #eee;
-  margin-right: 1%;
+  width: 98%;
+  border: none;
+  height: 1px;
+  background-color: #ccc;
+  margin-left: 0;
 }
 
 .tags {
-  list-style-type: none;
   padding-left: 0;
-  margin-top: 5px;
   display: flex;
-  flex: 1;
+  grid-auto-rows: 1fr;
+  margin-top: 5px;
+  list-style-type: none;
+  flex-direction: row;
   flex-wrap: wrap;
 }
 
-.tags ul {
-  align-self: stretch;
-}
-
 .tags li {
-  display: inline-block;
-  align-self: stretch;
-
-  flex: 1;
+  margin: 3px;
 }
 
 .tags button {
   border-radius: 1px;
+}
+
+.button-container {
+  margin-top: auto;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 10px;
 }
 
 .button-container button {
