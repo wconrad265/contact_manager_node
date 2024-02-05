@@ -29,6 +29,10 @@
           <button class="add">Add Contact</button>
           <input id="search" type="text" placeholder="Search" />
         </div>
+        <div id="tags-filtered">
+          <h3>Filtered Tags</h3>
+          <ul class="tags"></ul>
+        </div>
         <div id="contacts-grid"></div>
         <div class="contact-info" id="no-contacts">
           <h3>There is no contacts</h3>
@@ -178,6 +182,15 @@
           </form>
         </div>
       </div>
+    </script>
+    <script id="createTags" type="text/x-handlebars-template">
+      {{#each this}}
+        <li><button
+            type="button"
+            class="button-tag active"
+            data-tag-name="{{this}}"
+          >{{this}}</button></li>
+      {{/each}}
     </script>
   </body>
 </html>

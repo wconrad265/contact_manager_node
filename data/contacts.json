@@ -2,64 +2,36 @@
   {
     "full_name": "Will H Conrad",
     "phone_number": "18323647575",
-    "email": "w.conrad@outlook.com",
-    "tags": "in charge,will,morgan,friend",
+    "email": "tetet@test.com",
+    "tags": "test,this is a test,friend",
     "id": 1
+  },
+  {
+    "full_name": "dwwd",
+    "phone_number": "1111112022",
+    "email": "meddler.rights_0m@icloud.com",
+    "tags": "test",
+    "id": 2
+  },
+  {
+    "full_name": "dwwd",
+    "phone_number": "1111112022",
+    "email": "meddler.rights_0m@icloud.com",
+    "tags": "erer,test",
+    "id": 3
   },
   {
     "full_name": "Morgan",
     "phone_number": "1111112022",
     "email": "uwu@uwu.com",
-    "tags": "owned,breeding machine,wife,mine,morgan",
-    "id": 2
-  },
-  {
-    "full_name": "Devin",
-    "phone_number": "1111112022",
-    "email": "uwu@uwu.com",
-    "tags": "Old Turd,friend",
-    "id": 3
-  },
-  {
-    "full_name": "Will H Conrad",
-    "phone_number": "18323647575",
-    "email": "w.conrad@outlook.com",
-    "tags": null,
+    "tags": "good girl",
     "id": 4
   },
   {
-    "full_name": "Will H Conrad",
-    "phone_number": "18323647575",
-    "email": "w.conrad@outlook.com",
-    "tags": null,
+    "full_name": "Old Turd",
+    "phone_number": "1111111111",
+    "email": "w@w.com",
+    "tags": "old,friend,turd",
     "id": 5
-  },
-  {
-    "full_name": "efef",
-    "phone_number": "1111112022",
-    "email": "meddler.rights_0m@icloud.com",
-    "tags": null,
-    "id": 6
-  },
-  {
-    "full_name": "Homework 2",
-    "phone_number": "1111112022",
-    "email": "2@w.com",
-    "tags": null,
-    "id": 7
-  },
-  {
-    "full_name": "Will H Conrad",
-    "phone_number": "18323647575",
-    "email": "w.conrad@outlook.com",
-    "tags": null,
-    "id": 8
-  },
-  {
-    "full_name": "Will H Conrad",
-    "phone_number": "18323647575",
-    "email": "w.conrad@outlook.com",
-    "tags": "ererer",
-    "id": 9
   }
 ]

@@ -71,19 +71,16 @@ To-do list
   - get tags from edit list (done)
     - retrive contact info form server\
     - use handlebars template to populate this
-- Filter tags
+- Filter tags (done)
   - When user clicks tag on screen
     - turn tag to purple (done)
     - filter all other contacts that don't contain that tag (done)
   - provide functionally if multiple tags are clicked (done)
     - only users who have all the tags                (done)
   - display drop down, showing tags that are clicked. 
-- Filter and Search
+- Filter and Search (done)
   - when user clicks tag
-    - 
   - create variable filteredTagConctacts
   - This is array that search will search through
   - priority of seraching tags > search
-
 - recheck all event listeners
--

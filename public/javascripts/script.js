@@ -310,7 +310,6 @@ class ContactManager {
   }
   //done
   filterContacts(event) {
-    console.log("hello");
     const input = event.target.value;
 
     if (input.length === 0) {
@@ -373,10 +372,16 @@ class ContactManager {
     if (this.noTagsSelected()) {
       this.#filteredContacts = this.#contacts;
       $("#contacts-grid").show();
+      $("#tags-filtered").hide();
+      $("#tags-filtered ul").empty();
     } else {
       this.#filteredContacts = this.#contacts.filter(
         this.filterContactsByTag.bind(this)
       );
+      const template = this.#templates.createTags(this.#activeTags);
+      $("#tags-filtered ul").empty();
+      $("#tags-filtered ul").append(template);
+      $("#tags-filtered").show();
     }
 
     $("#search").trigger("input");
@@ -384,7 +389,7 @@ class ContactManager {
   //done
   noTagsSelected() {
     return this.#activeTags.length === 0;
-  }9=
+  }
   //done
   handleTagToggle(tagName) {
     const $tagElements = $(`[data-tag-name="${tagName}"]`);
@@ -416,7 +421,6 @@ class ContactManager {
   contactHaveTags(contact) {
     return this.#activeTags.every((tag) => contact.tags.includes(tag));
   }
-
   //done
   handleResponse(response, onSuccess) {
     if (response.ok) {
@@ -441,7 +445,7 @@ class ContactManager {
     const json = JSON.stringify(object);
     return json;
   }
-
+  //done
   extractTagsToArray(form) {
     const tagsTextNodes = $(form)
       .find("li")
@@ -458,11 +462,11 @@ class ContactManager {
 
     return tags;
   }
-
+  //done
   checkTagDuplicates(tags) {
     return new Set(tags).size !== tags.length;
   }
-
+  //done
   convertTagsToText(form) {
     const tags = this.extractTagsToArray(form);
     return tags.join(",");
@@ -495,7 +499,11 @@ class ContactManager {
       this.deleteTagInputBox.bind(this)
     );
 
-    $("#contacts-grid").on("click", ".button-tag", this.filterTags.bind(this));
+    $("#contact-container").on(
+      "click",
+      ".button-tag",
+      this.filterTags.bind(this)
+    );
   }
 
   //done
