@@ -149,6 +149,7 @@ button:hover {
   display: flex;
   flex-direction: column;
 }
+
 .grid-item h3 {
   font-size: 24px;
   align-self: flex-start;
@@ -266,7 +267,6 @@ button:hover {
   padding-top: 6px;
   padding-bottom: 6px;
   text-align: left;
-  width: 250px;
   display: block;
   margin-right: 0;
   width: 250px;
@@ -316,11 +316,48 @@ footer {
   margin-top: 30px;
 }
 
-/* background-color: #f2f2f2;
-  color: #333;
-  border-radius: 0px;
-  padding: 1px;
-  margin: 0 5px 5px 0;
-  padding: 2px;
+.form-group .tags-input {
+  flex-basis: 60%;
+}
+
+.tags-input ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tags-input li {
+  display: inline-block;
+  background-color: transparent;
+  border: 1px solid #6f5499;
+  border-radius: 2px;
+  color: #6f5499;
+  padding-left: 6px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.tags-input input[type="text"] {
+  font-size: 14px;
+
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 4px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  text-align: left;
+  width: 250px;
+  display: block;
+  margin-right: 0;
+  height: 15px;
+}
+
+.tags-input .delete-button {
+  background-color: transparent;
+  border: none;
+  color: #999;
   cursor: pointer;
-  border: none; */
+  margin-left: 1px;
+}

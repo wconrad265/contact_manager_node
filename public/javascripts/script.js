@@ -97,6 +97,29 @@ class ContactManager {
 
     $newContactForm.find(".form-group").removeClass("invalid-input");
     $newContactForm.find("form")[0].reset();
+    $newContactForm.find("ul").empty();
+  }
+  //done
+  addTagToInputBox(event) {
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+
+    const tagContent = event.target.value.trim();
+    if (tagContent === "") return;
+
+    const tag = $(
+      `<li>${tagContent}<button type='button' class="delete-button">X</button></li>`
+    );
+
+    $(event.target).prev().append(tag);
+    $(event.target).val("");
+  }
+  //done
+  deleteTagInputBox(event) {
+    if ($(event.target).hasClass("delete-button")) {
+      event.preventDefault();
+      $(event.target).parent().remove();
+    }
   }
   //done
   validateContactForm(event, func) {
@@ -110,6 +133,8 @@ class ContactManager {
     $($formGroup).removeClass("invalid-input");
 
     if ($emptyInputs.length === 0) {
+      const tags = this.convertTagsToText(form);
+      $(form).find('input[name="tags"').val(tags);
       func(form);
     } else {
       $($emptyInputs).addClass("invalid-input");
@@ -120,7 +145,7 @@ class ContactManager {
     return $formGroup.filter(function () {
       const input = $(this).find("input");
 
-      if (input.attr("id") === "new-tags") return false;
+      if (input.hasClass("add-tag")) return false;
 
       return input.val().trim().length === 0;
     });
@@ -130,6 +155,7 @@ class ContactManager {
     try {
       const formData = new FormData(form);
       const jsonData = this.convertToJson(formData);
+
       const headers = {
         "Content-Type": "application/json",
       };
@@ -145,7 +171,7 @@ class ContactManager {
         this.hideNewContactForm();
       });
     } catch (error) {
-      console.log("Error adding Contact", error);
+      console.error("Error adding Contact", error);
     }
   }
   //done
@@ -174,7 +200,7 @@ class ContactManager {
   //done
   async editContact(form) {
     try {
-      if (!$(event.target).hasClass("edit-form")) return;
+      if (!$(form).hasClass("edit-form")) return;
 
       const formData = new FormData(form);
       const contactId = form.dataset.contactId;
@@ -315,17 +341,41 @@ class ContactManager {
     const object = {};
 
     formData.forEach(function (value, key) {
-      console.log(key);
       if (key === "tags" && value === "") {
-        object[key] === null;
+        object[key] = null;
       } else {
         object[key] = value.trim();
       }
     });
 
     const json = JSON.stringify(object);
-
     return json;
+  }
+
+  extractTagsToArray(form) {
+    const tagsTextNodes = $(form)
+      .find("li")
+      .contents()
+      .filter(function () {
+        return this.nodeType === 3;
+      });
+
+    const tags = tagsTextNodes
+      .map(function () {
+        return this.nodeValue;
+      })
+      .get();
+
+    return tags;
+  }
+
+  checkTagDuplicates(tags) {
+    return new Set(tags).size !== tags.length;
+  }
+
+  convertTagsToText(form) {
+    const tags = this.extractTagsToArray(form);
+    return tags.join(",");
   }
   //done
   getFetchOptions(method, body, headers) {
@@ -342,6 +392,18 @@ class ContactManager {
     this.editContactEventListeners();
 
     $("#search").on("input", this.filterContacts.bind(this));
+
+    $("#contact-manager").on("keydown", (event) => {
+      if ($(event.target).hasClass("add-tag")) {
+        this.addTagToInputBox.call(this, event);
+      }
+    });
+
+    $("#contact-manager").on(
+      "click",
+      "button",
+      this.deleteTagInputBox.bind(this)
+    );
   }
   //done
   newContactEventListeners() {
@@ -354,7 +416,9 @@ class ContactManager {
       this.hideNewContactForm.bind(this)
     );
     $("#new-contact form").on("submit", (event) => {
-      this.validateContactForm.call(this, event, addContact);
+      if ($(event.target).hasClass("new-form")) {
+        this.validateContactForm.call(this, event, addContact);
+      }
     });
   }
   //done
@@ -371,7 +435,9 @@ class ContactManager {
 
     $("#contacts-grid").on("click", this.showEditContactForm.bind(this));
     $("#contact-manager").on("submit", (event) => {
-      this.validateContactForm.call(this, event, editContact);
+      if ($(event.target).hasClass("edit-form")) {
+        this.validateContactForm.call(this, event, editContact);
+      }
     });
     $("#contact-manager").on(
       "click",

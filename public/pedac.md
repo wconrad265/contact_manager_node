@@ -58,22 +58,28 @@ Contact Manager:
 
 Steps
 
-Tags
-  - Add new Contact
-  - Display tags on front page
-    - if tags are 0, do nothing
+To-do list
 
-we need to have the ability to select multiple tags
-- tags are button
-  - when a user clicks a tag
-    - we toggle the class on the tag to shown that it is clicked
-    - change the color to purple
-    - when you hover over it is inverse like our buttons
-    - if tag is clicked on
-      - add value to an array
-      - iterate through the contacts array to find all the contacts that contains all of the tags clicked
-        - if they do, set display on
-        - if they do not, set display off
-    - if the tag is clicked off
-  - find all the tags that match the button 
-  - need to toggle display on these elements
+- Tag Input
+  - only allow characters numbers spaces
+    - replace all multi spaces with one space
+  - validate that there are no duplicates
+    - when user hits enter, check to see if entered value is already included in tags
+- Add tag input functionally to edit form
+  - add tag input field (done)
+  - delegate event listener from new contact to edit form (done)
+  - get tags from edit list
+    - each tag buttons' textContent is tag name
+    - might be easier to get from contacts array
+    - use handlebars template to populate this
+- Filter tags
+  - When user clicks tag on screen
+    - turn tag to purple
+    - filter all other contacts that don't contain that tag
+  - provide functionally if multiple tags are clicked
+    - only users who have all the tags
+  - display drop down, showing tags that are clicked.
+- Filter and Search
+  - create variable filteredTagConctacts
+  - This is array that search will search through
+  - priority of seraching tags > search

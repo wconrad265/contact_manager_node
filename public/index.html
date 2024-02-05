@@ -41,7 +41,7 @@
       <div class="change-contact" id="new-contact">
         <h2>Create Contact</h2>
         <div>
-          <form action="/api/contacts/" method="POST">
+          <form class="new-form" action="/api/contacts/" method="POST">
             <div class="form-group">
               <label for="new-fname">Full name:</label>
               <div class="form-input">
@@ -65,13 +65,13 @@
             </div>
             <div class="form-group">
               <label for="new-tags">Tags:</label>
-              <div class="form-input">
-                <input type="text" id="new-tags" name="tags" />
-                <!-- <small>Please enter the Telephone number field</small> -->
+              <div class="tags-input">
+                <ul></ul>
+                <input type="text" class="add-tag" id="new-tags" name="tags" />
               </div>
             </div>
             <div class="form-group-buttons">
-              <button type="submit">Submit</button>
+              <button type="submit" class="submit-new">Submit</button>
               <button type="button" class="cancel">Cancel</button>
             </div>
           </form>
@@ -153,6 +153,13 @@
                   value="{{phone_number}}"
                 />
                 <small>Please enter the Telephone number field</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="edit-tags">Tags:</label>
+              <div class="tags-input">
+                <ul></ul>
+                <input type="text" class="add-tag" id="edit-tags" name="tags" />
               </div>
             </div>
             <div class="form-group-buttons">
