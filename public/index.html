@@ -158,7 +158,16 @@
             <div class="form-group">
               <label for="edit-tags">Tags:</label>
               <div class="tags-input">
-                <ul></ul>
+                <ul>
+                  {{#if tags}}
+                    {{#each tags}}
+                      <li>{{this}}<button
+                          type="button"
+                          class="delete-button"
+                        >X</button></li>
+                    {{/each}}
+                  {{/if}}
+                </ul>
                 <input type="text" class="add-tag" id="edit-tags" name="tags" />
               </div>
             </div>

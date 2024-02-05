@@ -68,9 +68,8 @@ To-do list
 - Add tag input functionally to edit form
   - add tag input field (done)
   - delegate event listener from new contact to edit form (done)
-  - get tags from edit list
-    - each tag buttons' textContent is tag name
-    - might be easier to get from contacts array
+  - get tags from edit list (done)
+    - retrive contact info form server\
     - use handlebars template to populate this
 - Filter tags
   - When user clicks tag on screen

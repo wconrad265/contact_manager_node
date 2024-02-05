@@ -19,6 +19,20 @@ class ContactManager {
       console.error("Error retrieving contacts", error);
     }
   }
+
+  async retrieveContact(contactId) {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/contacts/${contactId}`
+      );
+
+      this.handleResponse(response, () => {});
+
+      return response;
+    } catch (error) {
+      console.error("Error retrieving a contact", error);
+    }
+  }
   //done
   createHandlebarsTemplates() {
     const templates = $('[type="text/x-handlebars-template"]');
@@ -135,6 +149,7 @@ class ContactManager {
     if ($emptyInputs.length === 0) {
       const tags = this.convertTagsToText(form);
       $(form).find('input[name="tags"').val(tags);
+
       func(form);
     } else {
       $($emptyInputs).addClass("invalid-input");
@@ -224,42 +239,51 @@ class ContactManager {
     }
   }
   //done
-  buildEditForm(gridItem) {
-    const contactId = gridItem.attr("data-contact-id");
-    const contactInfo = gridItem.find("[data-field]");
+  async buildEditForm(gridItem) {
+    try {
+      const contactId = gridItem.attr("data-contact-id");
 
-    const contactObj = {};
-    contactObj["id"] = contactId;
+      const response = await this.retrieveContact(contactId);
 
-    for (let i = 0; i < contactInfo.length; i += 1) {
-      const key = contactInfo[i].dataset.field;
-      const value = contactInfo[i].textContent.trim();
-      contactObj[key] = value;
+      const contactInfo = await response.json();
+
+      if (contactInfo.tags !== null) {
+        contactInfo.tags = contactInfo.tags.split(",");
+      }
+
+      return this.#templates.editContacts(contactInfo);
+    } catch (error) {
+      console.error("Error on buildEditForm", error);
     }
-
-    return this.#templates.editContacts(contactObj);
   }
   //done
-  createEditFormElement(event) {
-    const gridItem = $(event.target).closest(".grid-item");
-    const editForm = this.buildEditForm(gridItem);
+  async createEditFormElement(event) {
+    try {
+      const gridItem = $(event.target).closest(".grid-item");
+      const editForm = await this.buildEditForm(gridItem);
+      $("#contact-manager").append(editForm);
 
-    $("#contact-manager").append(editForm);
-
-    return $("#edit-contact");
+      return $("#edit-contact");
+    } catch (error) {
+      console.error("createEditFormElement Error", error);
+    }
   }
   //done
-  showEditContactForm(event) {
-    if (!$(event.target).hasClass("edit")) return;
+  async showEditContactForm(event) {
+    try {
+      if (!$(event.target).hasClass("edit")) return;
 
-    const $contactContainer = $("#contact-container");
-    const $editFormElement = this.createEditFormElement(event);
+      const $contactContainer = $("#contact-container");
+      const $editFormElement = await this.createEditFormElement(event);
 
-    $contactContainer.slideUp(650);
+      $contactContainer.slideUp(650);
 
-    $editFormElement.slideDown(650, function () {
-      $editFormElement.insertBefore($contactContainer);
-    });
+      $editFormElement.slideDown(650, function () {
+        $editFormElement.insertBefore($contactContainer);
+      });
+    } catch (error) {
+      console.error("Error on show Edit Contact Form", error);
+    }
   }
   //done
   hideEditContactForm() {
