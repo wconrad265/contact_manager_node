@@ -126,6 +126,31 @@ class ContactManager {
     const tagContent = event.target.value.trim();
     if (tagContent === "") return;
 
+    if (this.checkDuplicateTags(event, tagContent)) {
+      this.handleDuplicateTag(event);
+    } else {
+      this.createAndAppendTag(event, tagContent);
+    }
+  }
+  //done
+  checkDuplicateTags(event, tagContent) {
+    const form = $(event.target).closest("form");
+    const tagArray = this.extractTagsToArray(form);
+
+    return tagArray.includes(tagContent);
+  }
+  //done
+  handleDuplicateTag(event) {
+    const $formGroup = $(event.target).closest(".form-group");
+    console.log($formGroup);
+    $formGroup.addClass("invalid-input");
+
+    setTimeout(() => {
+      $formGroup.removeClass("invalid-input");
+    }, 2000);
+  }
+  //done
+  createAndAppendTag(event, tagContent) {
     const tag = $(
       `<li>${tagContent}<button type='button' class="delete-button">X</button></li>`
     );
@@ -133,12 +158,11 @@ class ContactManager {
     $(event.target).prev().append(tag);
     $(event.target).val("");
   }
+
   //done
   deleteTagInputBox(event) {
-    if ($(event.target).hasClass("delete-button")) {
-      event.preventDefault();
-      $(event.target).parent().remove();
-    }
+    event.preventDefault();
+    $(event.target).parent().remove();
   }
   //done
   validateContactForm(event, func) {
@@ -365,7 +389,7 @@ class ContactManager {
   }
   //done
   filterTags(event) {
-    const tagName = event.target.dataset.tagName;
+    const tagName = event.target.dataset.tagName.toLowerCase();
 
     this.handleTagToggle(tagName);
 
@@ -479,25 +503,16 @@ class ContactManager {
       body: body,
     };
   }
-
+  //done
   addEventListeners() {
     this.newContactEventListeners();
     this.deleteContactEventManagers();
     this.editContactEventListeners();
-
+    this.filterEventListeners();
+    this.formEventListeners();
+  }
+  filterEventListeners() {
     $("#search").on("input", this.filterContacts.bind(this));
-
-    $("#contact-manager").on("keydown", (event) => {
-      if ($(event.target).hasClass("add-tag")) {
-        this.addTagToInputBox.call(this, event);
-      }
-    });
-
-    $("#contact-manager").on(
-      "click",
-      "button",
-      this.deleteTagInputBox.bind(this)
-    );
 
     $("#contact-container").on(
       "click",
@@ -506,6 +521,28 @@ class ContactManager {
     );
   }
 
+  formEventListeners() {
+    $("#contact-manager").on(
+      "keydown",
+      "input.add-tag",
+      this.addTagToInputBox.bind(this)
+    );
+
+    $("#contact-manager").on(
+      "click",
+      "button.delete-button",
+      this.deleteTagInputBox.bind(this)
+    );
+
+    $("#contact-manager").on("keydown", "input.add-tag", (event) => {
+      const allowedKeys = /[a-zA-Z0-9]/g;
+      const pressedKey = event.key;
+
+      if (!allowedKeys.test(pressedKey)) {
+        event.preventDefault();
+      }
+    });
+  }
   //done
   newContactEventListeners() {
     const addContact = this.addContact.bind(this);
@@ -516,10 +553,8 @@ class ContactManager {
       "button.cancel",
       this.hideNewContactForm.bind(this)
     );
-    $("#new-contact form").on("submit", (event) => {
-      if ($(event.target).hasClass("new-form")) {
-        this.validateContactForm.call(this, event, addContact);
-      }
+    $("#new-contact").on("submit", "form.new-form", (event) => {
+      this.validateContactForm.call(this, event, addContact);
     });
   }
   //done
@@ -535,10 +570,8 @@ class ContactManager {
     const editContact = this.editContact.bind(this);
 
     $("#contacts-grid").on("click", this.showEditContactForm.bind(this));
-    $("#contact-manager").on("submit", (event) => {
-      if ($(event.target).hasClass("edit-form")) {
-        this.validateContactForm.call(this, event, editContact);
-      }
+    $("#contact-manager").on("submit", "form.edit-form", (event) => {
+      this.validateContactForm.call(this, event, editContact);
     });
     $("#contact-manager").on(
       "click",

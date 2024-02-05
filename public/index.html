@@ -71,7 +71,14 @@
               <label for="new-tags">Tags:</label>
               <div class="tags-input">
                 <ul></ul>
-                <input type="text" class="add-tag" id="new-tags" name="tags" />
+                <input
+                  type="text"
+                  class="add-tag"
+                  id="new-tags"
+                  name="tags"
+                  pattern="[a-zA-Z0-9]+"
+                />
+                <small class="duplicate-tag">Tag Already exists</small>
               </div>
             </div>
             <div class="form-group-buttons">
@@ -172,7 +179,13 @@
                     {{/each}}
                   {{/if}}
                 </ul>
-                <input type="text" class="add-tag" id="edit-tags" name="tags" />
+                <input
+                  type="text"
+                  class="add-tag"
+                  id="edit-tags"
+                  name="tags"
+                  pattern="[a-zA-Z0-9]+"
+                />
               </div>
             </div>
             <div class="form-group-buttons">

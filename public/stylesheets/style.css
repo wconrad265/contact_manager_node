@@ -379,7 +379,7 @@ footer {
   margin: 0 21%;
   margin-bottom: 20px;
   display: none;
-  line-height: 1.4; /* Adjust for tighter spacing */
+  line-height: 1.4;
 }
 
 #tags-filtered h3 {
@@ -392,4 +392,10 @@ footer {
   margin-top: 5px;
   margin-bottom: 5px;
   margin-left: 5px;
+}
+
+.duplicate-tag {
+  display: none;
+  color: #b94a48;
+  margin-top: 5px;
 }
