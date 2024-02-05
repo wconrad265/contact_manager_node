@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "full_name": "Will H Conrad",
+    "phone_number": "18323647575",
+    "email": "w.conrad@outlook.com",
+    "tags": "in charge,will,morgan,friend",
+    "id": 1
+  },
+  {
+    "full_name": "Morgan",
+    "phone_number": "1111112022",
+    "email": "uwu@uwu.com",
+    "tags": "owned,breeding machine,wife,mine,morgan",
+    "id": 2
+  },
+  {
+    "full_name": "Devin",
+    "phone_number": "1111112022",
+    "email": "uwu@uwu.com",
+    "tags": "Old Turd,friend",
+    "id": 3
+  }
+]

@@ -1,10 +1,14 @@
 class ContactManager {
   #contacts;
   #templates;
+  #activeTags;
+  #filteredContacts;
 
   constructor() {
     this.#contacts;
+    this.#filteredContacts;
     this.#templates = {};
+    this.#activeTags = [];
     this.addEventListeners();
     this.createHandlebarsTemplates();
   }
@@ -317,7 +321,12 @@ class ContactManager {
   }
   //done
   showAllContacts() {
-    $("#contacts-grid").children().show();
+    this.#filteredContacts.forEach((contact) => {
+      const element = contactElements.find(`[data-contact-id=${contact.id}]`);
+
+      element.show();
+    });
+    // $("#contacts-grid").children().show();
   }
   //done
   filterContactElements(input) {
@@ -350,6 +359,47 @@ class ContactManager {
       $contactsFiltered.hide();
       strong.text("");
     }
+  }
+  //done
+  filterTags(event) {
+    const tagName = event.target.dataset.tagName;
+
+    this.handleTagToggle(tagName);
+
+    this.#filteredContacts = this.#contacts.filter(
+      this.filterContactsByTag.bind(this)
+    );
+  }
+  //done
+  handleTagToggle(tagName) {
+    const $tagElements = $(`[data-tag-name="${tagName}"]`);
+    this.updateTagNamesArray($tagElements, tagName);
+
+    $tagElements.toggleClass("active");
+  }
+  //done
+  updateTagNamesArray($tagElements, tagName) {
+    if ($tagElements.hasClass("active")) {
+      const ind = this.#activeTags.findIndex((tag) => tag === tagName);
+      this.#activeTags.splice(ind, 1);
+    } else {
+      this.#activeTags.push(tagName);
+    }
+  }
+  //done
+  filterContactsByTag(contact) {
+    const element = $("#contacts-grid").find(`[data-contact-id=${contact.id}]`);
+    if (contact.tags === null || !this.contactHaveTags(contact)) {
+      element.hide();
+      return false;
+    } else {
+      element.show();
+      return true;
+    }
+  }
+  //done
+  contactHaveTags(contact) {
+    return this.#activeTags.every((tag) => contact.tags.includes(tag));
   }
   //done
   handleResponse(response, onSuccess) {
@@ -428,7 +478,10 @@ class ContactManager {
       "button",
       this.deleteTagInputBox.bind(this)
     );
+
+    $("#contacts-grid").on("click", ".button-tag", this.filterTags.bind(this));
   }
+
   //done
   newContactEventListeners() {
     const addContact = this.addContact.bind(this);

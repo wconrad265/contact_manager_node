@@ -65,7 +65,7 @@ To-do list
     - replace all multi spaces with one space
   - validate that there are no duplicates
     - when user hits enter, check to see if entered value is already included in tags
-- Add tag input functionally to edit form
+- Add tag input functionally to edit form (done)
   - add tag input field (done)
   - delegate event listener from new contact to edit form (done)
   - get tags from edit list (done)
@@ -73,12 +73,17 @@ To-do list
     - use handlebars template to populate this
 - Filter tags
   - When user clicks tag on screen
-    - turn tag to purple
-    - filter all other contacts that don't contain that tag
-  - provide functionally if multiple tags are clicked
-    - only users who have all the tags
-  - display drop down, showing tags that are clicked.
+    - turn tag to purple (done)
+    - filter all other contacts that don't contain that tag (done)
+  - provide functionally if multiple tags are clicked (done)
+    - only users who have all the tags                (done)
+  - display drop down, showing tags that are clicked. 
 - Filter and Search
+  - when user clicks tag
+    - 
   - create variable filteredTagConctacts
   - This is array that search will search through
   - priority of seraching tags > search
+
+- recheck all event listeners
+-
