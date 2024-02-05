@@ -56,6 +56,7 @@ class ContactManager {
       const json = await response.json();
 
       this.#contacts = json;
+      this.#filteredContacts = json;
       this.displayContacts();
     } catch (error) {
       console.error("Error populating Contact Grid", error);
@@ -309,6 +310,7 @@ class ContactManager {
   }
   //done
   filterContacts(event) {
+    console.log("hello");
     const input = event.target.value;
 
     if (input.length === 0) {
@@ -322,7 +324,9 @@ class ContactManager {
   //done
   showAllContacts() {
     this.#filteredContacts.forEach((contact) => {
-      const element = contactElements.find(`[data-contact-id=${contact.id}]`);
+      const element = $("#contacts-grid").find(
+        `[data-contact-id=${contact.id}]`
+      );
 
       element.show();
     });
@@ -332,7 +336,7 @@ class ContactManager {
   filterContactElements(input) {
     const $contactElements = $("#contacts-grid");
 
-    this.#contacts.forEach((contact) =>
+    this.#filteredContacts.forEach((contact) =>
       this.filterElement($contactElements, input, contact)
     );
   }
@@ -366,10 +370,21 @@ class ContactManager {
 
     this.handleTagToggle(tagName);
 
-    this.#filteredContacts = this.#contacts.filter(
-      this.filterContactsByTag.bind(this)
-    );
+    if (this.noTagsSelected()) {
+      this.#filteredContacts = this.#contacts;
+      $("#contacts-grid").show();
+    } else {
+      this.#filteredContacts = this.#contacts.filter(
+        this.filterContactsByTag.bind(this)
+      );
+    }
+
+    $("#search").trigger("input");
   }
+  //done
+  noTagsSelected() {
+    return this.#activeTags.length === 0;
+  }9=
   //done
   handleTagToggle(tagName) {
     const $tagElements = $(`[data-tag-name="${tagName}"]`);
@@ -401,6 +416,7 @@ class ContactManager {
   contactHaveTags(contact) {
     return this.#activeTags.every((tag) => contact.tags.includes(tag));
   }
+
   //done
   handleResponse(response, onSuccess) {
     if (response.ok) {
