@@ -1,37 +1,23 @@
 [
   {
-    "full_name": "Will H Conrad",
-    "phone_number": "18323647575",
-    "email": "tetet@test.com",
-    "tags": "friend,hello-there,ererer",
+    "full_name": "This is a test",
+    "phone_number": "1111112022",
+    "email": "test@test.com",
+    "tags": "engineers",
     "id": 1
   },
   {
-    "full_name": "dwwd",
+    "full_name": "This is a test",
     "phone_number": "1111112022",
-    "email": "meddler.rights_0m@icloud.com",
-    "tags": "test",
+    "email": "test@test.com",
+    "tags": "engineerings,test",
     "id": 2
   },
   {
-    "full_name": "dwwd",
+    "full_name": "efef",
     "phone_number": "1111112022",
     "email": "meddler.rights_0m@icloud.com",
-    "tags": "erer,test",
+    "tags": "engineerings,test,hello",
     "id": 3
-  },
-  {
-    "full_name": "Morgan",
-    "phone_number": "1111112022",
-    "email": "uwu@uwu.com",
-    "tags": "good girl",
-    "id": 4
-  },
-  {
-    "full_name": "Old Turd",
-    "phone_number": "1111111111",
-    "email": "w@w.com",
-    "tags": "old,friend,turd",
-    "id": 5
   }
 ]

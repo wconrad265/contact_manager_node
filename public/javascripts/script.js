@@ -123,7 +123,7 @@ class ContactManager {
     if (event.key !== "Enter") return;
     event.preventDefault();
 
-    const tagContent = event.target.value.trim();
+    const tagContent = event.target.value.toLowerCase().trim();
     if (tagContent === "") return;
 
     if (this.checkDuplicateTags(event, tagContent)) {
@@ -158,7 +158,6 @@ class ContactManager {
     $(event.target).prev().append(tag);
     $(event.target).val("");
   }
-
   //done
   deleteTagInputBox(event) {
     event.preventDefault();
@@ -337,7 +336,7 @@ class ContactManager {
     const input = event.target.value;
 
     if (input.length === 0) {
-      this.showAllContacts();
+      this.showAllFilteredContacts();
     } else {
       this.filterContactElements(input);
     }
@@ -345,7 +344,7 @@ class ContactManager {
     this.displayFilteredMessage(input);
   }
   //done
-  showAllContacts() {
+  showAllFilteredContacts() {
     this.#filteredContacts.forEach((contact) => {
       const element = $("#contacts-grid").find(
         `[data-contact-id=${contact.id}]`
@@ -394,18 +393,9 @@ class ContactManager {
     this.handleTagToggle(tagName);
 
     if (this.noTagsSelected()) {
-      this.#filteredContacts = this.#contacts;
-      $("#contacts-grid").show();
-      $("#tags-filtered").hide();
-      $("#tags-filtered ul").empty();
+      this.showAllContacts();
     } else {
-      this.#filteredContacts = this.#contacts.filter(
-        this.filterContactsByTag.bind(this)
-      );
-      const template = this.#templates.createTags(this.#activeTags);
-      $("#tags-filtered ul").empty();
-      $("#tags-filtered ul").append(template);
-      $("#tags-filtered").show();
+      this.updateContactsDisplay();
     }
 
     $("#search").trigger("input");
@@ -420,6 +410,25 @@ class ContactManager {
     this.updateTagNamesArray($tagElements, tagName);
 
     $tagElements.toggleClass("active");
+  }
+
+  showAllContacts() {
+    this.#filteredContacts = this.#contacts;
+    $("#contacts-grid").show();
+    $("#tags-filtered").slideUp(300),
+      function () {
+        $("#tags-filtered ul").empty();
+      };
+  }
+
+  updateContactsDisplay() {
+    this.#filteredContacts = this.#contacts.filter(
+      this.filterContactsByTag.bind(this)
+    );
+    const template = this.#templates.createTags(this.#activeTags);
+    $("#tags-filtered ul").empty();
+    $("#tags-filtered ul").append(template);
+    $("#tags-filtered").slideDown(300);
   }
   //done
   updateTagNamesArray($tagElements, tagName) {
@@ -511,6 +520,7 @@ class ContactManager {
     this.filterEventListeners();
     this.formEventListeners();
   }
+
   filterEventListeners() {
     $("#search").on("input", this.filterContacts.bind(this));
 
