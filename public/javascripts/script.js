@@ -102,8 +102,6 @@ class ContactManager {
     const $contactContainer = $("#contact-container");
     const $newContact = $("#new-contact");
 
-    this.clearSearchValue();
-
     $newContact.slideUp(650);
 
     $($contactContainer).slideDown(650, () => {
@@ -212,6 +210,7 @@ class ContactManager {
 
       this.handleResponse(response, () => {
         this.hideTagsDropDown();
+        this.clearSearchValue();
         this.populateContactsGrid();
         this.hideNewContactForm();
       });
@@ -268,6 +267,7 @@ class ContactManager {
 
       this.handleResponse(response, () => {
         this.hideTagsDropDown();
+        this.clearSearchValue();
         this.populateContactsGrid();
         this.hideEditContactForm();
       });
@@ -330,8 +330,6 @@ class ContactManager {
   hideEditContactForm() {
     const $editContact = $("#edit-contact");
     const $contactContainer = $("#contact-container");
-
-    this.clearSearchValue();
 
     $($editContact).slideUp(650);
     $($contactContainer).slideDown(650, function () {

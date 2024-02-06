@@ -77,6 +77,9 @@
                   id="new-tags"
                   name="tags"
                   pattern="[a-zA-Z0-9]+"
+                  onpaste="return false;"
+                  ondrop="return false;"
+                  autocomplete="off"
                 />
                 <small class="duplicate-tag">Tag Already exists</small>
               </div>
@@ -189,7 +192,9 @@
                   class="add-tag"
                   id="edit-tags"
                   name="tags"
-                  pattern="[a-zA-Z0-9]+"
+                  onpaste="return false;"
+                  ondrop="return false;"
+                  autocomplete="off"
                 />
               </div>
             </div>
