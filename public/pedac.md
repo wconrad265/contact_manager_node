@@ -85,3 +85,23 @@ To-do list
     - replace all multi spaces with one space
   - validate that there are no duplicates
     - when user hits enter, check to see if entered value is already included in tags
+
+
+Test
+  - add contact
+    - test all fields
+    - all fields and tag filtering should be cleared
+  - edit contact
+    - test all fields when editing
+    - all fields and tag filtering should be cleared
+  - delete contact
+    - make sure contact is deleted
+    - all fields and tag filtering should be cleared
+  - Filter
+    - when clicking a tag, it should filter all contacts that have that tag
+  - Search  
+    - search contacts that contain that tag
+    - should only search filtered contacts
+    - if contact is added/deleted/filtered
+      - clear the search and filter
+      - 

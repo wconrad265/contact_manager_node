@@ -1,23 +1,16 @@
 [
   {
-    "full_name": "This is a test",
-    "phone_number": "1111112022",
-    "email": "test@test.com",
-    "tags": "engineers",
-    "id": 1
-  },
-  {
-    "full_name": "This is a test",
-    "phone_number": "1111112022",
-    "email": "test@test.com",
-    "tags": "engineerings,test",
-    "id": 2
-  },
-  {
-    "full_name": "efef",
+    "full_name": "dwwd",
     "phone_number": "1111112022",
     "email": "meddler.rights_0m@icloud.com",
-    "tags": "engineerings,test,hello",
-    "id": 3
+    "tags": "test,engineers,fef",
+    "id": 5
+  },
+  {
+    "full_name": "This is a test",
+    "phone_number": "1111112022",
+    "email": "test@test.com",
+    "tags": null,
+    "id": 6
   }
 ]

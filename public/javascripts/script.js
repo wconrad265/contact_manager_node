@@ -210,6 +210,7 @@ class ContactManager {
       );
 
       this.handleResponse(response, () => {
+        this.hideTagsDropDown();
         this.populateContactsGrid();
         this.hideNewContactForm();
       });
@@ -234,7 +235,11 @@ class ContactManager {
           }
         );
 
-        this.handleResponse(response, this.populateContactsGrid.bind(this));
+        this.handleResponse(response, () => {
+          this.hideTagsDropDown();
+          this.populateContactsGrid();
+          this.clearSearchValue();
+        });
       }
     } catch (error) {
       console.error("Error deleting contact", error);
@@ -259,6 +264,7 @@ class ContactManager {
       );
 
       this.handleResponse(response, () => {
+        this.hideTagsDropDown();
         this.populateContactsGrid();
         this.hideEditContactForm();
       });
@@ -394,6 +400,7 @@ class ContactManager {
 
     if (this.noTagsSelected()) {
       this.showAllContacts();
+      this.hideTagsDropDown();
     } else {
       this.updateContactsDisplay();
     }
@@ -401,20 +408,31 @@ class ContactManager {
     $("#search").trigger("input");
   }
   //done
-  noTagsSelected() {
-    return this.#activeTags.length === 0;
-  }
-  //done
   handleTagToggle(tagName) {
     const $tagElements = $(`[data-tag-name="${tagName}"]`);
-    this.updateTagNamesArray($tagElements, tagName);
+    this.updateTagNamesArray(tagName);
 
     $tagElements.toggleClass("active");
+  }
+  updateTagNamesArray(tagName) {
+    if (this.#activeTags.includes(tagName)) {
+      const ind = this.#activeTags.findIndex((tag) => tag === tagName);
+      this.#activeTags.splice(ind, 1);
+    } else {
+      this.#activeTags.push(tagName);
+    }
+  }
+  //done
+  noTagsSelected() {
+    return this.#activeTags.length === 0;
   }
 
   showAllContacts() {
     this.#filteredContacts = this.#contacts;
     $("#contacts-grid").show();
+  }
+
+  hideTagsDropDown() {
     $("#tags-filtered").slideUp(300),
       function () {
         $("#tags-filtered ul").empty();
@@ -426,18 +444,13 @@ class ContactManager {
       this.filterContactsByTag.bind(this)
     );
     const template = this.#templates.createTags(this.#activeTags);
+    this.showTagsDropDown(template);
+  }
+
+  showTagsDropDown(template) {
     $("#tags-filtered ul").empty();
     $("#tags-filtered ul").append(template);
     $("#tags-filtered").slideDown(300);
-  }
-  //done
-  updateTagNamesArray($tagElements, tagName) {
-    if ($tagElements.hasClass("active")) {
-      const ind = this.#activeTags.findIndex((tag) => tag === tagName);
-      this.#activeTags.splice(ind, 1);
-    } else {
-      this.#activeTags.push(tagName);
-    }
   }
   //done
   filterContactsByTag(contact) {
