@@ -30,3 +30,9 @@ I also wanted to touch on the functionally of the website.
   - Basic form validation prevents copy-pasting.
 - **Error Page**
   - I added a custom error page, that will show if code within a try/catch block encounters an error.
+
+**Running Contact Manager**
+
+- node is required
+- install with `npm install`
+- start with `npm start`
