@@ -54,12 +54,13 @@ class ContactManager {
     try {
       const response = await this.retrieveContacts();
       const json = await response.json();
-
       this.#contacts = json;
       this.#filteredContacts = json;
       this.displayContacts();
+      this.resetActiveTags();
     } catch (error) {
       console.error("Error populating Contact Grid", error);
+      this.showError();
     }
   }
   //done
@@ -216,6 +217,7 @@ class ContactManager {
       });
     } catch (error) {
       console.error("Error adding Contact", error);
+      this.showError();
     }
   }
   //done
@@ -243,6 +245,7 @@ class ContactManager {
       }
     } catch (error) {
       console.error("Error deleting contact", error);
+      this.showError();
     }
   }
   //done
@@ -270,6 +273,7 @@ class ContactManager {
       });
     } catch (error) {
       console.error("Error occurred when editing contact", error);
+      this.showError();
     }
   }
   //done
@@ -288,6 +292,7 @@ class ContactManager {
       return this.#templates.editContacts(contactInfo);
     } catch (error) {
       console.error("Error on buildEditForm", error);
+      this.showError();
     }
   }
   //done
@@ -300,6 +305,7 @@ class ContactManager {
       return $("#edit-contact");
     } catch (error) {
       console.error("createEditFormElement Error", error);
+      this.showError();
     }
   }
   //done
@@ -317,6 +323,7 @@ class ContactManager {
       });
     } catch (error) {
       console.error("Error on show Edit Contact Form", error);
+      this.showError();
     }
   }
   //done
@@ -467,6 +474,9 @@ class ContactManager {
   contactHaveTags(contact) {
     return this.#activeTags.every((tag) => contact.tags.includes(tag));
   }
+  resetActiveTags() {
+    this.#activeTags = [];
+  }
   //done
   handleResponse(response, onSuccess) {
     if (response.ok) {
@@ -532,6 +542,8 @@ class ContactManager {
     this.editContactEventListeners();
     this.filterEventListeners();
     this.formEventListeners();
+
+    $("#error").on("click", "button", () => location.reload());
   }
 
   filterEventListeners() {
@@ -601,5 +613,10 @@ class ContactManager {
       "button.cancel-edit",
       this.hideEditContactForm.bind(this)
     );
+  }
+  //done
+  showError() {
+    $("#contact-manager").slideUp(650);
+    $("#error").slideDown(650);
   }
 }

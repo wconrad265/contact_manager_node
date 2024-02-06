@@ -399,3 +399,29 @@ footer {
   color: #b94a48;
   margin-top: 5px;
 }
+
+#error {
+  display: flex;
+  flex-direction: column;
+  margin: 0 20;
+  justify-content: center;
+  align-items: center;
+  display: none;
+  text-align: center;
+}
+
+#error h2 {
+  font-size: 30px;
+  padding-bottom: 9px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+#error button {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 18px;
+}
